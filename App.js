@@ -1,30 +1,13 @@
 import { useCallback, useEffect, useState } from "react"
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import { useFetch } from "./hooks/useFetch"
+
 import Card from "./components/country-card";
 
 export default function App() {
-    const [ data, setData ] = useState([]);
-    const [ loading, setLoading ] = useState(false);
-
-    const fetchData = useCallback(() => {
-        setLoading(true);
-
-        fetch("https://restcountries.com/v3.1/all")
-            .then(res => res.json())
-            .then(countries => {
-                setLoading(false);
-                setData(countries);
-            })
-            .catch(error => {
-                setLoading(false);
-                console.error(error);
-            })
-    }, []);
-
-    useEffect(() => {
-        fetchData();
-    }, [ fetchData ])
+    
+    const { data, loading } = useFetch({ url: "https://restcountries.com/v3.1/all" });
 
     if(loading) {
         return (
