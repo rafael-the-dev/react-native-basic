@@ -1,25 +1,22 @@
 import { useCallback, useState } from "react"
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
-    const [ number, setNumber ] = useState(0);
+    const [ value, setValue ] = useState("");
 
-    const increaseHandler = useCallback(() => setNumber(currentNumber => {
-        console.log(currentNumber); return currentNumber + 1;
-    }), []);
-    const decreaseHandler = useCallback(() => setNumber(currentNumber => currentNumber - 1), []);
+    const onChangeHandler = useCallback((text) => {
+        setValue(text);
+    }, [])
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{ number }</Text>
-            <View style={styles.buttonsContainer}>
-                <Button 
-                    onPress={increaseHandler}
-                    title="+"
-                />
-                <Button 
-                    onPress={decreaseHandler}
-                    title="-"
+            <Text style={styles.text}>{ value }</Text>
+            <View style={styles.inputContainer}>
+                <TextInput 
+                    onChangeText={onChangeHandler}
+                    placeholder="Insert text here"
+                    style={styles.input}
+                    value={value}
                 />
             </View>
         </View>
@@ -34,10 +31,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: '2rem',
+    fontSize: '1.2rem',
     fontWeight: "bold"
   },
-  buttonsContainer: {
-    marginTop: "1.5rem"
+  inputContainer: {
+    marginTop: '1.4rem'
+  },
+  input: {
+    borderColor: "#000",
+    borderStyle: "solid",
+    borderWidth: 1,
+    height: 40,
+    padding: 10
   }
 });
