@@ -1,13 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useCallback, useState } from "react"
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [ number, setNumber ] = useState(0)
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>{ number }</Text>
+            <View style={styles.buttonsContainer}>
+                <Button 
+                    title="+"
+                />
+                <Button 
+                    title="-"
+                />
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +26,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: '2rem',
+    fontWeight: "bold"
+  },
+  buttonsContainer: {
+    marginTop: "1.5rem"
+  }
 });
