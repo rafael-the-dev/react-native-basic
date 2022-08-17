@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import Header from "./components/header";
+import TodoItem from "./components/todo-item";
 
 const App = () => {
     const [ todos, setTodos ] = useState([
@@ -9,11 +10,18 @@ const App = () => {
         { key: "2", text: "Finish todos app " }
     ]);
 
+    
+    const deleteHandler = useCallback(id => () => {
+        setTodos(currentTodos => currentTodos.filter(todo => todo.key !== id))
+    }, []);
+
     const getItem = useCallback(({ item }) => (
-        <View>
-            <Text>{ item.text }</Text>
-        </View>
-    ), []);
+        <TodoItem 
+            { ...item } 
+            id={item.key}
+            deleteHandler={deleteHandler}
+        />
+    ), [ deleteHandler ]);
 
     return (
         <View style={styles.container}>
