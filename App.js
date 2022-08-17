@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { StyleSheet, ScrollView, Text, View } from "react-native";
+import { FlatList, StyleSheet, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 const App = () => {
     const [ people, setPeople ] = useState([
@@ -10,17 +10,22 @@ const App = () => {
         { key: "5", name: "Arnaldo Manecusse" }
     ]);
 
+    const pressHandler = useCallback(prop => () => {
+        console.log(prop);
+    }, [])
+
+    const getItem = useCallback(({ item }) => (
+        <TouchableOpacity onPress={pressHandler(item.name)}>
+            <Text style={styles.item}>{ item.name }</Text>
+        </TouchableOpacity>
+    ), [ pressHandler ])
+
     return (
         <View style={styles.container}>
-            <ScrollView>
-                {
-                    people.map(person => (
-                        <View key={person.key}>
-                            <Text style={styles.item}>{ person.name }</Text>
-                        </View>
-                    ))
-                }
-            </ScrollView>
+            <FlatList
+                data={people}
+                renderItem={getItem} 
+            />
         </View>
     );
 };
