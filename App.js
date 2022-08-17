@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, ScrollView, Text, View } from "react-native";
 
 const App = () => {
     const [ people, setPeople ] = useState([
@@ -12,13 +12,15 @@ const App = () => {
 
     return (
         <View style={styles.container}>
-             {
-                people.map(person => (
-                    <View key={person.key}>
-                        <Text>{ person.name }</Text>
-                    </View>
-                ))
-             }
+            <ScrollView>
+                {
+                    people.map(person => (
+                        <View key={person.key}>
+                            <Text style={styles.item}>{ person.name }</Text>
+                        </View>
+                    ))
+                }
+            </ScrollView>
         </View>
     );
 };
@@ -28,7 +30,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         flex: 1,
         paddingHorizontal: 10,
-        paddingTop: 20
+        paddingVertical: 20
+    },
+    item: {
+        backgroundColor: "pink",
+        fontSize: 24,
+        marginTop: 20,
+        padding: 30
     }
 })
 
