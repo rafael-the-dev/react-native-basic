@@ -5,12 +5,13 @@ import Header from "./components/header";
 import TodoItem from "./components/todo-item";
 import AddTodo from "./components/add-todo";
 
+import SandBox from "./components/sandbox";
+
 const App = () => {
     const [ todos, setTodos ] = useState([
         { key: "1", text: "Buy coffee" },
         { key: "2", text: "Finish todos app " }
     ]);
-
     
     const deleteHandler = useCallback(id => () => {
         setTodos(currentTodos => currentTodos.filter(todo => todo.key !== id))
@@ -72,3 +73,20 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+/**
+ * <TouchableWithoutFeedback onPress={dismissKeyboardHandler}>
+            <View style={styles.container}>
+                <Header />
+                <View style={styles.content}>
+                    <AddTodo addTodo={addTodo} />
+                    <View style={styles.list}>
+                        <FlatList 
+                            data={todos}
+                            renderItem={getItem}
+                        />
+                    </View>
+                </View>
+            </View>
+        </TouchableWithoutFeedback>
+*/
